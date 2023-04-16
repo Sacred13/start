@@ -30,9 +30,9 @@
     var toBuyItems = [
       { name: "Coocing", quantity: 5 },
       { name: "potato", quantity: 5 },
-      { name: "Cookies", quantity: 5 },
+      { name: "Cookies", quantity: 10 },
       { name: "Chocolate", quantity: 8 },
-      { name: "Milk", quantity: 4 }
+      { name: "Milk", quantity: 5 }
     ];
 
     var alreadyBoughtItems = [];
