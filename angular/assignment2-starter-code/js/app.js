@@ -1,11 +1,13 @@
 (function () {
     'use strict';
     
+    $controller(constructor, locals);
+
     angular.module('MyApp', [])
-    .controller('MsgController', MsgController);
+    .controller('ToBuyController', ToBuyController);
     
-    MsgController.$inject = ['$scope'];
-    function MsgController($scope) {
+    ToBuyController.$inject = ['$scope'];
+    function ToBuyController($scope) {
         $scope.name = '';
     
     
@@ -32,12 +34,9 @@
     
     })();
 
-    var p = new Person("Yaakov");
 
-    function Person(name) {
-      this.name = name;
-    }
 
-    console.log(p);
+
+
 
    
