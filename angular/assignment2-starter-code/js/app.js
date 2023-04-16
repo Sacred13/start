@@ -1,42 +1,56 @@
-(function () {
-    'use strict';
-    
-    $controller(constructor, locals);
+(function() {
+  'use strict';
 
-    angular.module('MyApp', [])
-    .controller('ToBuyController', ToBuyController);
-    
-    ToBuyController.$inject = ['$scope'];
-    function ToBuyController($scope) {
-        $scope.name = '';
-    
-    
-      $scope.feedOleg = function () {
-        const str = $scope.name;
-        const words = str.split(' ');
+  angular.module('ShoppingListCheckOff', [])
+    .controller('ToBuyController', ToBuyController)
+    .controller('AlreadyBoughtController', AlreadyBoughtController)
+    .service('ShoppingListCheckOffService', ShoppingListCheckOffService);
 
-        if (words == 0) {
-            $scope.sayMessage = function () {
-                return "Please enter data first!";
-              };        
-        } else if (words.length <= 3) {
-            $scope.sayMessage = function () {
-                return "Enjoy!";
-              };
-        } else {
-            $scope.sayMessage = function () {
-                return "Too much!";
-              };
-        };
-        console.log(words);
-      };
+  ToBuyController.$inject = ['ShoppingListCheckOffService'];
+  function ToBuyController(ShoppingListCheckOffService) {
+    var toBuy = this;
+
+    toBuy.items = ShoppingListCheckOffService.getToBuyItems();
+
+    toBuy.buyItem = function(itemIndex) {
+      ShoppingListCheckOffService.buyItem(itemIndex);
+    };
+  }
+
+  AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
+  function AlreadyBoughtController(ShoppingListCheckOffService) {
+    var alreadyBought = this;
+
+    alreadyBought.items = ShoppingListCheckOffService.getAlreadyBoughtItems();
     }
-    
-    })();
 
+  function ShoppingListCheckOffService() {
+    var service = this;
 
+    var toBuyItems = [
+      { name: "Coocing", quantity: 5 },
+      { name: "potato", quantity: 5 },
+      { name: "Cookies", quantity: 5 },
+      { name: "Chocolate", quantity: 8 },
+      { name: "Milk", quantity: 4 }
+    ];
 
+    var alreadyBoughtItems = [];
 
+    service.buyItem = function(itemIndex) {
+      var item = toBuyItems[itemIndex];
+      alreadyBoughtItems.push(item);
+      toBuyItems.splice(itemIndex, 1);
+      console.log("alreadyBoughtItems: "+alreadyBoughtItems);
+    };
 
+    service.getToBuyItems = function() {
+      return toBuyItems;
+    };
 
-   
+    service.getAlreadyBoughtItems = function() {
+      return alreadyBoughtItems;
+    };
+  }
+
+})();
