@@ -40,4 +40,16 @@
 
     console.log(p);
 
+
+    function asyncFunction (someVal) {
+      var deferred = $q.defer();
+      
+      if (someVal > 3) {
+        deferred.resolve({val: (someVal + 3)});
+      }
+      else {
+        deferred.reject("Everything is wrong! Wrong, I tell you!");
+      }
+    }
+
    
